@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<page:ViewPage xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="ToDo.View.Home.MainPage"
+               xmlns:page="clr-namespace:ToDo.View"
+               xmlns:converters="clr-namespace:ToDo.Converter"
+               xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+               ios:Page.UseSafeArea="true"
+               NavigationPage.HasNavigationBar="false"
+               BackgroundColor="White">
+    <page:ViewPage.Resources>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </page:ViewPage.Resources>
+
+    <page:ViewPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+
+            <!--Page header-->
+            <StackLayout Spacing="0">
+                <Label TextColor="Black" Text="Todo List" HorizontalOptions="CenterAndExpand" FontSize="Large"/>
+                <BoxView BackgroundColor="Black" HorizontalOptions="FillAndExpand" HeightRequest="1" Margin="0, 10, 0, 0"/>
+            </StackLayout>
+
+            <!--Page Content-->
+            <Grid RowSpacing="0"
+                  VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand">
+
+                <!--Data and Error-->
+                <Grid Grid.Row="0"
+                  Grid.Column="0"
+                  VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand"
+                  IsVisible="{Binding IsBusy, Converter = {StaticResource InverseBoolConverter}}">
+
+                    <!--Data Stack-->
+                    <ListView SeparatorColor="DarkGray"
+                                  ItemsSource="{Binding ToDoItems}"
+                                  HasUnevenRows="True"
+                                  Grid.Row="0"
+                                  Grid.Column="0"
+                                  VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand"
+                                  IsVisible="{Binding HasData}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout HorizontalOptions="FillAndExpand"
+                                                     Orientation="Horizontal" Padding="20, 10, 10, 10">
+
+                                        <Label Text="{Binding Id}" VerticalOptions="CenterAndExpand" MinimumWidthRequest="30"/>
+
+                                        <StackLayout VerticalOptions="FillAndExpand" Orientation="Vertical" Padding="20,0,0,0">
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="UserId: " FontSize="Small"/>
+                                                <Label Text="{Binding UserId}" FontSize="Small"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
+                                                <Label Text="Completed: " FontSize="Small"/>
+                                                <Label Text="{Binding IsCompleted}" FontSize="Small"/>
+                                            </StackLayout>
+
+                                            <Label Text="{Binding Title}" FontSize="Medium"/>
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <!--Error Stack-->
+                    <StackLayout Grid.Row="0"
+                             Grid.Column="0"
+                             VerticalOptions="FillAndExpand"
+                             HorizontalOptions="FillAndExpand"
+                             IsVisible="{Binding HasData, Converter = {StaticResource InverseBoolConverter}}">
+                        <StackLayout VerticalOptions="CenterAndExpand">
+                            <Label Text="Something went wrong" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding ErrorMessage}" FontSize="Medium" HorizontalOptions="CenterAndExpand" Margin="0, 20, 0, 10"/>
+                            <StackLayout Padding="20" HorizontalOptions="CenterAndExpand">
+                                <Label Text="Reload" TextColor="Blue" FontSize="Medium"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ReloadCommand}"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+
+
+                <!--Loading Stack-->
+                <StackLayout  Grid.Row="0"
+                          Grid.Column="0"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          IsVisible="{Binding IsBusy}">
+                    <StackLayout VerticalOptions="CenterAndExpand"
+                             HorizontalOptions="CenterAndExpand">
+                        <Label Text="Please wait...!"/>
+                        <ActivityIndicator IsEnabled="true"
+                                   IsRunning="true"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Color="Black"/>
+                    </StackLayout>
+                </StackLayout>
+
+            </Grid>
+        </StackLayout>
+    </page:ViewPage.Content>
+</page:ViewPage>
