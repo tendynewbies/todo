@@ -1,8 +1,7 @@
 # ToDo
-Nagarro Xamarin Assignment - ToDo
 
 # Problem Statement
-Create a mobile app to fetch todos from a restful api and show on screen.
+A Xamarin Foms(Android & iOS) mobile app to fetch todos from a restful api and display.
 <br/>
 <br/>
 Below are the detailed requirements.
