@@ -74,10 +74,11 @@
 
                     <!--Error Stack-->
                     <StackLayout Grid.Row="0"
-                             Grid.Column="0"
-                             VerticalOptions="FillAndExpand"
-                             HorizontalOptions="FillAndExpand"
-                             IsVisible="{Binding HasData, Converter = {StaticResource InverseBoolConverter}}">
+                                 Grid.Column="0"
+                                 Padding="20, 0"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="FillAndExpand"
+                                 IsVisible="{Binding HasData, Converter = {StaticResource InverseBoolConverter}}">
                         <StackLayout VerticalOptions="CenterAndExpand">
                             <Label Text="Something went wrong" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
                             <Label Text="{Binding ErrorMessage}" FontSize="Medium" HorizontalOptions="CenterAndExpand" Margin="0, 20, 0, 10"/>
