@@ -1,6 +1,4 @@
 # ToDo
-
-# Problem Statement
 A Xamarin Foms(Android & iOS) mobile app to fetch todos from a restful api and display.
 <br/>
 <br/>
